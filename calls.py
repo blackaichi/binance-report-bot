@@ -7,7 +7,7 @@ import schedule
 import time
 import coin_handler
 
-f = open("keys", "r").read()
+f = open("keys.json", "r").read()
 keys = json.loads(f)
 
 public_key = keys["public"]
@@ -22,21 +22,25 @@ def get_coin(coin):
     send_message(coin, info["price"])
 
 def get_all_coins():
-    info = client.get_avg_price(symbol=constants.ALGO)
-    send_message(constants.ALGO, info["price"])
+    c = coin_handler.get_IDs()
+    for i in c:
+        info = client.get_avg_price(symbol=i)
+        send_message(i, info["price"])
 
 def send_message(coin, price):
     bot.send_message(chat_id = bot_chatID, text = coin + ": " + price)
 
+get_all_coins()
+
 """
 schedule.every().day.at("10:00").do(get_all_coins)
 schedule.every().day.at("22:00").do(get_all_coins)
-"""
-
-coin_handler.add_coin("BTCEUR", "BTC")
-get_all_coins()
-"""
+a = 0;
 while True:
+    if a == 0:
+        bot.send_message(chat_id = bot_chatID, text = Bon dia aqui tens el teu report matinal:)
+    else 
+        bot.send_message(chat_id = bot_chatID, text = Bon dia aqui tens el teu report nocturn:)
     #get_all_coins()
     schedule.run_pending()
     time.sleep(60)
