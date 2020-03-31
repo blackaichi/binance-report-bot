@@ -16,7 +16,6 @@ def get_all_coins():
         a = {}
         for i,v in data.items():
             a[i] = v
-        print(a)
 
 def get_IDs():
     with open(filepath, 'r') as fd:    
