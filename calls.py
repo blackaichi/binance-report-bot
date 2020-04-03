@@ -52,7 +52,7 @@ def execute():
     btc = balance_handler.get_balance(client, coins)
     bot.send_message(chat_id = bot_chatID, text = "Total balance: " + str(btc) + " B\n")
     busd = client.get_avg_price(symbol='BTCBUSD')
-    busd = float(busd['price'])
+    busd = float(busd['price'])*btc
     bot.send_message(chat_id = bot_chatID, text = "Total balance: " + str(busd) + " $\n")
 
     # calculate profit
