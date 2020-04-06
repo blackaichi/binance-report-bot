@@ -18,6 +18,10 @@ bot_chatID = keys["chatID"]
 client = Client(public_key, private_key)
 bot = telegram.Bot(token=bot_token)
 
+a = 0
+last_btc = 1
+last_busd = 1
+
 def get_coin(coin):
     info = client.get_avg_price(symbol=coin)
     send_message(coin, info["price"])
@@ -40,9 +44,6 @@ def execute():
     #calculate balance and say hello
     coins = balance_handler.search_coins(client)
     balance_handler.write_coins(coins)
-    a = 0
-    last_btc = 0.03
-    last_busd = 130
     if a == 0:
         bot.send_message(chat_id = bot_chatID, text = "Bon dia, aqui tens el teu report matinal:")
         a = 1
@@ -65,15 +66,12 @@ def execute():
     # calculate price of all coins selected
     get_all_coins()
     last_btc = btc
-"""
+    last_busd = busd
+
 schedule.every().day.at("10:00").do(execute)
 schedule.every().day.at("22:00").do(execute)
-"""
-a = 0
-last_btc = 0.03
-execute()
-"""
+
+
 while True:
     schedule.run_pending()
     time.sleep(60)
-"""
